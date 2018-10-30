@@ -6,6 +6,29 @@
   display: none;
 }
 
-#close-panel{
+#close-panel {
   display: none;
+}
+
+#panel-new-talk {
+  display: none
+}
+
+.customize-button {
+  background: #f3f3f3;
+  width: 100px;
+  padding: 2px;
+  text-align: center;
+  border: 1px solid #DDD;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 3px
+}
+
+#input-profile-photo {
+  display: none
+}
+
+#photo-container-edit-profile {
+  cursor: pointer
 }

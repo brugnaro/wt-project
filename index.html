@@ -11,12 +11,25 @@
 
 <body>
   <div id="app">
-    <div id="my-photo">photo</div>
-    <div id="btn-new-contact">new contact</div>
+    <div id="my-photo" class="customize-button">Edit Profile</div>
+    <div id="btn-new-contact" class="customize-button">New Contact</div>
+    <div id="btn-new-talk" class="customize-button">New Talk</div>
 
-    <div id="close-panel">Close</div>
-    <div id="panel-add-contact">add contact</div>
-    <div id="panel-edit-profile">edit contact</div>
+    <div id="close-panel">x</div>
+    <div id="panel-add-contact">
+      <form id="form-panel-add-contact">
+        <input name="email" type="email" placeholder="email" />
+      </form>
+    </div>
+    <div id="panel-edit-profile">
+      <div id="photo-container-edit-profile">
+        <img src="./src/assets/images/user.png" width="60px" />
+        <input type="file" id="input-profile-photo" />
+      </div>
+      <div id="input-name-panel-edit-profile" contenteditable="true">Contact</div>
+      <div id="btn-save-panel-edit-profile" class="customize-button">Save</div>
+    </div>
+    <div id="panel-new-talk">new talk</div>
 
   </div>
 

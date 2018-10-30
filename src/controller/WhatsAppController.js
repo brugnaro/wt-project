@@ -87,6 +87,26 @@ class WhatsAppController {
 
     }
 
+    HTMLFormElement.prototype.getForm = function () {
+
+      return new FormData(this);
+
+    }
+
+    HTMLFormElement.prototype.toJSON = function () {
+
+      let json = {};
+
+      this.getForm().forEach((value, key) => {
+
+        json[key] = value;
+
+      });
+
+      return json;
+
+    }
+
   }
 
   initEvents() {
@@ -106,9 +126,48 @@ class WhatsAppController {
 
     });
 
+    this.el.btnNewTalk.on('click', e => {
+
+      this.el.panelNewTalk.show();
+      this.el.closePanel.show();
+
+    });
+
     this.el.closePanel.on('click', e => {
 
       this.hidePanel();
+
+    });
+
+    this.el.photoContainerEditProfile.on('click', e => {
+
+      this.el.inputProfilePhoto.click();
+
+    });
+
+    this.el.inputNamePanelEditProfile.on('keypress', e => {
+
+      if (e.key === 'Enter') {
+
+        e.preventDefault();
+        this.el.btnSavePanelEditProfile.click();
+
+      }
+
+    });
+
+    this.el.btnSavePanelEditProfile.on('click', e => {
+
+      console.log(this.el.inputNamePanelEditProfile.innerHTML)
+
+    });
+
+    this.el.formPanelAddContact.on('submit', e => {
+
+      e.preventDefault();
+
+      let formData = new FormData(this.el.formPanelAddContact);
+
 
     });
 
@@ -118,6 +177,7 @@ class WhatsAppController {
     this.el.panelEditProfile.hide();
     this.el.panelAddContact.hide();
     this.el.closePanel.hide();
+    this.el.panelNewTalk.hide();
   }
 
 }
