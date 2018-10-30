@@ -2,11 +2,10 @@ class WhatsAppController {
 
   constructor() {
 
-    console.log('WhatsAppController ok');
-
     this.elementsPrototype();
     this.loadElements();
-    
+    this.initEvents();
+
   }
 
   loadElements() {
@@ -36,7 +35,7 @@ class WhatsAppController {
     Element.prototype.toggle = function () {
       this.style.display = (this.style.display === 'none') ? 'block' : 'none';
       return this;
-      
+
     }
 
     Element.prototype.on = function (events, fn) {
@@ -46,19 +45,19 @@ class WhatsAppController {
       return this;
     }
 
-    Element.prototype.css = function(styles) {
-      
-      for(let name in styles){
+    Element.prototype.css = function (styles) {
+
+      for (let name in styles) {
 
         this.style[name] = styles[name];
-        
+
       }
 
       return this;
 
     }
 
-    Element.prototype.addClass = function(name) {
+    Element.prototype.addClass = function (name) {
 
       this.classList.add(name);
 
@@ -66,7 +65,7 @@ class WhatsAppController {
 
     }
 
-    Element.prototype.removeClass = function(name) {
+    Element.prototype.removeClass = function (name) {
 
       this.classList.remove(name);
 
@@ -74,7 +73,7 @@ class WhatsAppController {
 
     }
 
-    Element.prototype.toggleClass = function(name) {
+    Element.prototype.toggleClass = function (name) {
 
       this.classList.toggle(name);
 
@@ -82,12 +81,43 @@ class WhatsAppController {
 
     }
 
-    Element.prototype.hasClass = function(name) {
+    Element.prototype.hasClass = function (name) {
 
       return this.classList.contains(name);
 
     }
 
+  }
+
+  initEvents() {
+
+    this.el.myPhoto.on('click', e => {
+
+      this.el.panelEditProfile.show();
+      this.el.closePanel.show();
+
+
+    });
+
+    this.el.btnNewContact.on('click', e => {
+
+      this.el.panelAddContact.show();
+      this.el.closePanel.show();
+
+    });
+
+    this.el.closePanel.on('click', e => {
+
+      this.hidePanel();
+
+    });
+
+  }
+
+  hidePanel() {
+    this.el.panelEditProfile.hide();
+    this.el.panelAddContact.hide();
+    this.el.closePanel.hide();
   }
 
 }
