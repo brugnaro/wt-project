@@ -8,6 +8,6 @@ class Format {
 
     return Object.keys(div.firstChild.dataset)[0];
 
-  }
+  };
 
 }
