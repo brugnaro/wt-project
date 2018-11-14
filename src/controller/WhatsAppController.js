@@ -25,7 +25,13 @@ export class WhatsAppController {
 
       .then((response) => {
 
-        this._user = new User();
+        this._user = new User(response.user.email);
+
+        this._user.on('datachange', data => {
+
+          
+
+        });
 
         let userRef = User.findByEmail(response.user.email);
 
