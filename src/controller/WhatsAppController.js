@@ -29,7 +29,18 @@ export class WhatsAppController {
 
         this._user.on('datachange', data => {
 
-          
+          document.querySelector('title').innerHTML = data.name + ' - WhatsApp Clone';
+
+          if(data.photo) {
+
+            let photo = this.el.imgPanelEditProfile;
+            photo.src = data.photo;
+            photo.show();
+            this.el.imgDefaultPanelEditProfile.hide();
+
+            this.el.myPhoto.querySelector('img')
+
+          }
 
         });
 
