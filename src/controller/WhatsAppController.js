@@ -31,34 +31,26 @@ export class WhatsAppController {
 
           document.querySelector('title').innerHTML = data.name + ' - WhatsApp Clone';
 
-          if(data.photo) {
+          this.el.inputNamePanelEditProfile.innerHTML = data.name
+
+          if (data.photo) {
 
             let photo = this.el.imgPanelEditProfile;
             photo.src = data.photo;
             photo.show();
             this.el.imgDefaultPanelEditProfile.hide();
 
-            this.el.myPhoto.querySelector('img')
+            let photo2 = this.el.myPhoto.querySelector('img');
+            photo2.src = data.photo;
+            photo2.show();
 
           }
 
         });
 
-        let userRef = User.findByEmail(response.user.email);
-
-        userRef.set({
-          name: response.user.displayName,
-          email: response.user.email,
-          photo: response.user.photoURL
-        }).then(() => {
-
-          this.el.appContent.css({
-            display: 'flex'
-          });
-
+        this.el.appContent.css({
+          display: 'flex'
         });
-
-
 
       })
       .catch(err => {
