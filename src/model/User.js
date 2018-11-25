@@ -24,15 +24,11 @@ export class User extends Model {
 
     return new Promise((s, f) => {
 
-      User.findByEmail(id).get().then(doc => {
+      User.findByEmail(id).onSnapshot(doc => {
 
         this.fromJSON(doc.data());
 
         s(doc);
-
-      }).catch(err => {
-
-        f(err)
 
       });
 
