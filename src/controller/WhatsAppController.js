@@ -182,33 +182,46 @@ export class WhatsAppController {
       display: 'flex'
     });
 
-    Message.getRef(this._contactActive.chatId).orderBy('timeStamp')
-      .onSnapshot(docs => {
+    this.el.panelMessagesContainer.innerHTML = '';
 
-        this.el.panelMessagesContainer.innerHTML = '';
+    Message.getRef(this._contactActive.chatId).orderBy('timeStamp').onSnapshot(docs => {
 
-        docs.forEach(doc => {
+      let scrollTop = this.el.panelMessagesContainer.scrollTop;
+      let scrollTopMax = this.el.panelMessagesContainer.scrollHeight - this.el.panelMessagesContainer.offsetHeight;
+      let autoScroll = (scrollTop >= scrollTopMax);
 
-          let data = doc.data();
-          data.id = doc.id;
+      docs.forEach(doc => {
 
-          if (!this.el.panelMessagesContainer.querySelector('#_' + data.id)) {
+        let data = doc.data();
+        data.id = doc.id;
 
-            let message = new Message();
+        if (!this.el.panelMessagesContainer.querySelector('#_' + data.id)) {
 
-            message.fromJSON(data);
+          let message = new Message();
 
-            let me = (data.from === this._user.email);
+          message.fromJSON(data);
 
-            let view = message.getViewElement(me);
+          let me = (data.from === this._user.email);
 
-            this.el.panelMessagesContainer.appendChild(view);
+          let view = message.getViewElement(me);
 
-          }
+          this.el.panelMessagesContainer.appendChild(view);
 
-        });
+        }
 
       });
+
+      if (autoScroll) {
+
+        this.el.panelMessagesContainer.scrollTop = this.el.panelMessagesContainer.scrollHeight - this.el.panelMessagesContainer.offsetHeight;
+
+      } else {
+
+        this.el.panelMessagesContainer.scrollTop = scrollTop;
+
+      }
+
+    });
 
   }
 
