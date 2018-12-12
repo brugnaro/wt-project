@@ -28,8 +28,8 @@ export class Format {
 
     return date.toLocaleTimeString(this.locale, {
 
-      hours: '2-digit',
-      minutes: '2-digit'
+      hour: '2-digit',
+      minute: '2-digit'
 
     });
 
