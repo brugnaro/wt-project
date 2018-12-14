@@ -275,6 +275,12 @@ export class Message extends Model {
 
   }
 
+  static sendImage(chatId, from, file) {
+
+    return Message.send(this._contactActive.chatId, this._user.email, 'image', '');
+
+  }
+
   static send(chatId, from, type, content) {
 
     return new Promise((s, f) => {
