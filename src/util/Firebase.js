@@ -10,7 +10,7 @@ export class Firebase {
       authDomain: "wtproject-663eb.firebaseapp.com",
       databaseURL: "https://wtproject-663eb.firebaseio.com",
       projectId: "wtproject-663eb",
-      storageBucket: "wtproject-663eb.appspot.com",
+      storageBucket: "gs://wtproject-663eb.appspot.com",
       messagingSenderId: "85393010399"
     };
 
