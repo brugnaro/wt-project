@@ -298,14 +298,16 @@ export class Message extends Model {
 
       }, () => {
 
-        Message.send(
-          chatId,
-          from,
-          'image',
-          uploadTask.snapshot.downloadURL
-        ).then(() => {
+        uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
 
-          s();
+          Message.send(
+            chatId,
+            from,
+            'image',
+            downloadURL
+          ).then(() => {
+            s();
+          });
 
         });
 
