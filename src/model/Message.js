@@ -95,11 +95,6 @@ export class Message extends Model {
                         <img src="${this.content}" class="_1JVSX message-photo" style="width: 100%; display:none">
                         <div class="_1i3Za"></div>
                     </div>
-                    <div class="message-container-legend">
-                        <div class="_3zb-j ZhF0n">
-                            <span dir="ltr" class="selectable-text invisible-space copyable-text message-text">Texto da foto</span>
-                        </div>
-                    </div>
                     <div class="_2TvOE">
                         <div class="_1DZAH text-white" role="button">
                             <span class="message-time">${Format.timeStampToTime(this.timeStamp)}</span>
@@ -119,7 +114,11 @@ export class Message extends Model {
 
         div.querySelector('.message-photo').on('load', e => {
 
-          console.log('load ok');
+          div.querySelector('.message-photo').show();
+          div.querySelector('._34Olu').hide();
+          div.querySelector('._3v3PK').css({
+            height: 'auto'
+          });
 
         });
 
