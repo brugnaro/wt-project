@@ -647,7 +647,17 @@ export class WhatsAppController {
     });
 
     this.el.btnSendDocument.on('click', e => {
-      console.log('send document');
+
+      let file = this.el.inputDocument.files[0];
+      let base64 = this.el.imgPanelDocumentPreview.src;
+
+      Message.sendDocument(
+        this._contactActive.chatId,
+        this._user.email,
+        file,
+        base64
+      );
+
     });
 
     this.el.btnAttachContact.on('click', e => {

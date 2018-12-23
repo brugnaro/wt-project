@@ -281,6 +281,12 @@ export class Message extends Model {
 
   }
 
+  static sendDocument(chatId, from, file, preview) {
+
+    
+
+  }
+
   static sendImage(chatId, from, file) {
 
     return new Promise((s, f) => {
