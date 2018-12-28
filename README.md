@@ -21,4 +21,4 @@ Lista de recursos usados em aula para este projeto
 | PDF.js | https://mozilla.github.io/pdf.js/ |
 | MediaDevices.getUserMedia() | https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia |
 
-w42 5:42
+w42 15:27

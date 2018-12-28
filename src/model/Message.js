@@ -281,13 +281,7 @@ export class Message extends Model {
 
   }
 
-  static sendDocument(chatId, from, file, preview) {
-
-    
-
-  }
-
-  static sendImage(chatId, from, file) {
+  static upload(file) {
 
     return new Promise((s, f) => {
 
@@ -299,20 +293,63 @@ export class Message extends Model {
 
       }, err => {
 
-        console.error(error);
+        f(err);
 
       }, () => {
 
-        uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+        s(uploadTask.snapshot);
 
-          Message.send(
-            chatId,
-            from,
-            'image',
-            downloadURL
-          ).then(() => {
-            s();
-          });
+      });
+
+    });
+
+  }
+
+  static sendDocument(chatId, from, file, filePreview) {
+
+    Message.send(chatId, from, 'document').then(msgRef => {
+
+      Message.upload(file).then(snapshot => {
+
+        let downloadFile = snapshot.downloadURL;
+
+        Message.upload(filePreview).then(snapshot2 => {
+
+          let downloadPreview = snapshot2.downloadURL;
+
+          msgRef.set({
+            content: downloadFile,
+            preview: downloadPreview,
+            filename: file.name,
+            size: file.size,
+            fileType: file.type,
+            status: 'sent'
+          }, {
+              merge: true
+            });
+
+        });
+
+      });
+
+    });
+
+  }
+
+  static sendImage(chatId, from, file) {
+
+    return new Promise((s, f) => {
+
+      Message.upload(file).then(snapshot => {
+
+        Message.send(
+          chatId,
+          from,
+          'image',
+          snapshot.downloadURL
+        ).then(() => {
+
+          s();
 
         });
 
