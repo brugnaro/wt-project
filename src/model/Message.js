@@ -183,6 +183,12 @@ export class Message extends Model {
             </div>
         </div>
         `;
+
+        div.on('click', e => {
+
+          window.open(this.content);
+
+        });
         break;
 
       case 'audio':
@@ -327,7 +333,7 @@ export class Message extends Model {
 
   }
 
-  static sendDocument(chatId, from, file, filePreview) {
+  static sendDocument(chatId, from, file, filePreview, info) {
 
     Message.send(chatId, from, 'document', '').then(msgRef => {
 
@@ -335,13 +341,30 @@ export class Message extends Model {
 
         let downloadFile = downloadURL;
 
-        Message.upload(filePreview, from).then(downloadURL2 => {
+        if (filePreview) {
 
-          let downloadPreview = downloadURL2;
+          Message.upload(filePreview, from).then(downloadURL2 => {
+
+            let downloadPreview = downloadURL2;
+
+            msgRef.set({
+              content: downloadFile,
+              preview: downloadPreview,
+              filename: file.name,
+              size: file.size,
+              fileType: file.type,
+              status: 'sent',
+              info
+            }, {
+                merge: true
+              });
+
+          });
+
+        } else {
 
           msgRef.set({
             content: downloadFile,
-            preview: downloadPreview,
             filename: file.name,
             size: file.size,
             fileType: file.type,
@@ -350,7 +373,7 @@ export class Message extends Model {
               merge: true
             });
 
-        });
+        }
 
       });
 
