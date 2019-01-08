@@ -315,7 +315,11 @@ export class Message extends Model {
 
       }, () => {
 
-        s(uploadTask.snapshot);
+        uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+
+          s(downloadURL);
+
+        });
 
       });
 
@@ -327,13 +331,13 @@ export class Message extends Model {
 
     Message.send(chatId, from, 'document', '').then(msgRef => {
 
-      Message.upload(file, from).then(snapshot => {
+      Message.upload(file, from).then(downloadURL => {
 
-        let downloadFile = snapshot.downloadURL;
+        let downloadFile = downloadURL;
 
-        Message.upload(filePreview, from).then(snapshot2 => {
+        Message.upload(filePreview, from).then(downloadURL2 => {
 
-          let downloadPreview = snapshot2.downloadURL;
+          let downloadPreview = downloadURL2;
 
           msgRef.set({
             content: downloadFile,
