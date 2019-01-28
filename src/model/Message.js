@@ -489,17 +489,25 @@ export class Message extends Model {
 
     return new Promise((s, f) => {
 
-      Message.upload(file, from).then(snapshot => {
+      let uploadTask = Firebase.hd().ref(from).child(Date.now() + '_' + file.name).put(file);
 
-        Message.send(
-          chatId,
-          from,
-          'image',
-          snapshot.downloadURL
-        ).then(() => {
+      uploadTask.on('state_changed', e => {
 
-          s();
+        // console.info('upload', e);
 
+      }, err => {
+        console.error(err)
+      }, () => {
+
+        uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+          Message.send(
+            chatId,
+            from,
+            'image',
+            downloadURL
+          ).then(() => {
+            s();
+          });
         });
 
       });
